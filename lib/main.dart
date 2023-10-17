@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: "IBM"),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Poul-GPT'),
+      home: const MyHomePage(title: 'PSF Database'),
     );
   }
 }
@@ -94,8 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     isLoading = true;
                   });
-                  //var response = await onEnter(
-                  //    text); // Assuming onEnter returns the bot's response // Replace with your own logic
+                  // var response = await onEnter(
+                  //     text); // Assuming onEnter returns the bot's response // Replace with your own logic
                   setState(() {
                     isLoading = false;
                     messages.add(Message(text: text, sender: 'Bruger'));
