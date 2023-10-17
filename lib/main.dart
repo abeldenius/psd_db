@@ -1,116 +1,93 @@
 import 'package:flutter/material.dart';
 
-class Message {
-  final String text;
-  final String sender;
-
-  Message({required this.text, required this.sender});
-}
-
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Poul',
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
-          useMaterial3: true,
-          fontFamily: "IBM"),
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'PSF Database'),
+      home: MyForm(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
+class MyForm extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyFormState createState() => _MyFormState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _controller = TextEditingController();
-  final List<Message> messages = [];
-  bool isLoading = false;
+class _MyFormState extends State<MyForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _value = "";
+  String _device = "";
+  String _manufacturer = "";
+  String _model = "";
+  String _serialNumber = "";
+  String _newDeviceId = "";
+  DateTime _receivedDate = DateTime.now();
+  String _responsible = "";
+  String _notes = "";
+  TimeOfDay _time = TimeOfDay.now();
+  String _email = "";
+  String _password = "";
+  String _location = "";
+  String _caseComment = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Flutter Form Example'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: 600,
-              height: 800,
-              child: ListView.builder(
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 600),
-                      child: TextField(
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 12,
-                            color: Colors.black),
-                        maxLines: null,
-                        controller: TextEditingController()
-                          ..text = messages[index].text,
-                        enabled: false, // Makes it read-only
-                        decoration: InputDecoration(
-                          labelText: messages[index].sender,
-                          border: const OutlineInputBorder(),
-                        ),
-                      ),
-                    ),
-                  );
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Value'),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter a value';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _value = value!;
                 },
               ),
-            ),
-            isLoading
-                ? const CircularProgressIndicator()
-                : const SizedBox.shrink(),
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.only(bottom: 50.0),
-              width: 600,
-              child: TextField(
-                controller: _controller,
-                onSubmitted: (text) async {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  // var response = await onEnter(
-                  //     text); // Assuming onEnter returns the bot's response // Replace with your own logic
-                  setState(() {
-                    isLoading = false;
-                    messages.add(Message(text: text, sender: 'Bruger'));
-                    messages.add(Message(text: text, sender: 'Poul'));
-                  });
-                  _controller.clear();
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Device'),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter a device';
+                  }
+                  return null;
                 },
-                decoration: const InputDecoration(
-                  suffixIcon: Icon(Icons.send),
-                  border: OutlineInputBorder(),
-                  labelText: 'Hvad kan jeg hjælpe med?',
-                ),
+                onSaved: (value) {
+                  _device = value!;
+                },
               ),
-            ),
-          ],
+              // Repeat similar TextFormField widgets for other fields
+
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    // Now you can use the values entered in your form
+                    // For example, you can print them to the console
+                    print('Value: $_value');
+                    print('Device: $_device');
+                    // Print other fields as well
+                  }
+                },
+                child: Text('Submit'),
+              ),
+            ],
+          ),
         ),
       ),
     );
