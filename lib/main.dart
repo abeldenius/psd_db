@@ -39,8 +39,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller2 = TextEditingController();
+  String? _selectedValue;
+
   void dispose() {
     _controller.dispose();
+    _controller2.dispose();
   }
 
   @override
@@ -72,6 +76,77 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 400,
+              height: 60,
+              child: DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: 'Enhed',
+                ),
+                value: _selectedValue,
+                items: const [
+                  DropdownMenuItem(
+                    child: Text("Computer (C)"),
+                    value: "Computer (C)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Bærbar (B)"),
+                    value: "Bærbar (B)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Bærbar (B)"),
+                    value: "Bærbar (B)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Android (A)"),
+                    value: "Android (A)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("iPhone (I)"),
+                    value: "iPhone (I)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Bærbar (B)"),
+                    value: "Bærbar (B)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Bærbar (B)"),
+                    value: "Bærbar (B)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Bærbar (B)"),
+                    value: "Bærbar (B)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Bærbar (B)"),
+                    value: "Bærbar (B)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Bærbar (B)"),
+                    value: "Bærbar (B)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Bærbar (B)"),
+                    value: "Bærbar (B)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Bærbar (B)"),
+                    value: "Bærbar (B)",
+                  )
+
+                  // Add more items here
+                ],
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedValue = newValue;
+                  });
+                },
+              ),
             ),
             const SizedBox(
               height: 20,
