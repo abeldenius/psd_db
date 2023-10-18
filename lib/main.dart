@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 class Message {
@@ -40,11 +42,22 @@ class _MyHomePageState extends State<MyHomePage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
+  final TextEditingController _controller3 = TextEditingController();
+  final TextEditingController _controller4 = TextEditingController();
+  final TextEditingController _controller5 = TextEditingController();
+  final TextEditingController _controller6 = TextEditingController();
+  final TextEditingController _controller7 = TextEditingController();
+  final TextEditingController _controller8 = TextEditingController();
+  final TextEditingController _controller9 = TextEditingController();
+  final TextEditingController _controller10 = TextEditingController();
+  final TextEditingController _controller11 = TextEditingController();
+  final TextEditingController _controller12 = TextEditingController();
   String? _selectedValue;
 
   void dispose() {
     _controller.dispose();
     _controller2.dispose();
+    super.dispose();
   }
 
   @override
@@ -94,12 +107,12 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
               width: 400,
               height: 60,
               child: DropdownButtonFormField<String>(
                 decoration: const InputDecoration(
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                   labelText: 'Enhed',
                 ),
                 value: _selectedValue,
@@ -115,6 +128,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
               ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FormField<String>(
+              // Initialize FormField value.
+              initialValue: '',
+              // Provide a builder function to create your custom widget.
+              builder: (FormFieldState<String> state) {
+                return Container(
+                  width: 400,
+                  height: 60,
+                  child: TextField(
+                    controller: _controller2,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Mærke',
+                      errorText: state.hasError ? state.errorText : null,
+                    ),
+                  ),
+                );
+              },
             ),
             const SizedBox(
               height: 20,
