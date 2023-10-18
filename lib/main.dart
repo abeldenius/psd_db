@@ -39,6 +39,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Widget buildCustomFormField(
+      String labelText, TextEditingController controller) {
+    return FormField<String>(
+      initialValue: '',
+      builder: (FormFieldState<String> state) {
+        return SizedBox(
+          width: 400,
+          height: 60,
+          child: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: labelText,
+              errorText: state.hasError ? state.errorText : null,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
@@ -87,25 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
         key: _formKey,
         child: Column(
           children: [
-            FormField<String>(
-              // Initialize FormField value.
-              initialValue: '',
-              // Provide a builder function to create your custom widget.
-              builder: (FormFieldState<String> state) {
-                return SizedBox(
-                  width: 400,
-                  height: 60,
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: 'Sagsnummer',
-                      errorText: state.hasError ? state.errorText : null,
-                    ),
-                  ),
-                );
-              },
-            ),
+            buildCustomFormField('Sagsnummer', _controller),
             const SizedBox(
               height: 10,
             ),
@@ -134,135 +137,27 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 10,
             ),
-            FormField<String>(
-              // Initialize FormField value.
-              initialValue: '',
-              // Provide a builder function to create your custom widget.
-              builder: (FormFieldState<String> state) {
-                return SizedBox(
-                  width: 400,
-                  height: 60,
-                  child: TextField(
-                    controller: _controller2,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: 'Mærke',
-                      errorText: state.hasError ? state.errorText : null,
-                    ),
-                  ),
-                );
-              },
-            ),
+            buildCustomFormField('Mærke', _controller2),
             const SizedBox(
               height: 10,
             ),
-            FormField<String>(
-              // Initialize FormField value.
-              initialValue: '',
-              // Provide a builder function to create your custom widget.
-              builder: (FormFieldState<String> state) {
-                return SizedBox(
-                  width: 400,
-                  height: 60,
-                  child: TextField(
-                    controller: _controller3,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: 'Model',
-                      errorText: state.hasError ? state.errorText : null,
-                    ),
-                  ),
-                );
-              },
-            ),
+            buildCustomFormField('Model', _controller3),
             const SizedBox(
               height: 10,
             ),
-            FormField<String>(
-              // Initialize FormField value.
-              initialValue: '',
-              // Provide a builder function to create your custom widget.
-              builder: (FormFieldState<String> state) {
-                return SizedBox(
-                  width: 400,
-                  height: 60,
-                  child: TextField(
-                    controller: _controller4,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: 'Serienummer',
-                      errorText: state.hasError ? state.errorText : null,
-                    ),
-                  ),
-                );
-              },
-            ),
+            buildCustomFormField('Serienummer', _controller4),
             const SizedBox(
               height: 10,
             ),
-            FormField<String>(
-              // Initialize FormField value.
-              initialValue: '',
-              // Provide a builder function to create your custom widget.
-              builder: (FormFieldState<String> state) {
-                return SizedBox(
-                  width: 400,
-                  height: 60,
-                  child: TextField(
-                    controller: _controller5,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: 'Afsender',
-                      errorText: state.hasError ? state.errorText : null,
-                    ),
-                  ),
-                );
-              },
-            ),
+            buildCustomFormField('Afsender', _controller5),
             const SizedBox(
               height: 10,
             ),
-            FormField<String>(
-              // Initialize FormField value.
-              initialValue: '',
-              // Provide a builder function to create your custom widget.
-              builder: (FormFieldState<String> state) {
-                return SizedBox(
-                  width: 400,
-                  height: 60,
-                  child: TextField(
-                    controller: _controller6,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: 'Modtager',
-                      errorText: state.hasError ? state.errorText : null,
-                    ),
-                  ),
-                );
-              },
-            ),
+            buildCustomFormField('Modtager', _controller6),
             const SizedBox(
               height: 10,
             ),
-            FormField<String>(
-              // Initialize FormField value.
-              initialValue: '',
-              // Provide a builder function to create your custom widget.
-              builder: (FormFieldState<String> state) {
-                return SizedBox(
-                  width: 400,
-                  height: 60,
-                  child: TextField(
-                    controller: _controller7,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: 'Eventuelle noter',
-                      errorText: state.hasError ? state.errorText : null,
-                    ),
-                  ),
-                );
-              },
-            ),
+            buildCustomFormField('Eventuelle noter', _controller7),
             const SizedBox(
               height: 20,
             ),
@@ -276,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   print(_selectedValue);
                 }
               },
-              child: const Text('Gem'),
+              child: const Text('Indsæt'),
             ),
           ],
         ),
