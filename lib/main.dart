@@ -38,10 +38,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _controller = TextEditingController();
-  final List<Message> messages = [];
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,63 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              width: 600,
-              height: 800,
-              child: ListView.builder(
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 600),
-                      child: TextField(
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 12,
-                            color: Colors.black),
-                        maxLines: null,
-                        controller: TextEditingController()
-                          ..text = messages[index].text,
-                        enabled: false, // Makes it read-only
-                        decoration: InputDecoration(
-                          labelText: messages[index].sender,
-                          border: const OutlineInputBorder(),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            isLoading
-                ? const CircularProgressIndicator()
-                : const SizedBox.shrink(),
             const Spacer(),
             Container(
               padding: const EdgeInsets.only(bottom: 50.0),
               width: 600,
-              child: TextField(
-                controller: _controller,
-                onSubmitted: (text) async {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  // var response = await onEnter(
-                  //     text); // Assuming onEnter returns the bot's response // Replace with your own logic
-                  setState(() {
-                    isLoading = false;
-                    messages.add(Message(text: text, sender: 'Bruger'));
-                    messages.add(Message(text: text, sender: 'Poul'));
-                  });
-                  _controller.clear();
-                },
-                decoration: const InputDecoration(
-                  suffixIcon: Icon(Icons.send),
-                  border: OutlineInputBorder(),
-                  labelText: 'Hvad kan jeg hjælpe med?',
-                ),
-              ),
             ),
           ],
         ),
