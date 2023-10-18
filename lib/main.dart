@@ -47,16 +47,18 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _controller5 = TextEditingController();
   final TextEditingController _controller6 = TextEditingController();
   final TextEditingController _controller7 = TextEditingController();
-  final TextEditingController _controller8 = TextEditingController();
-  final TextEditingController _controller9 = TextEditingController();
-  final TextEditingController _controller10 = TextEditingController();
-  final TextEditingController _controller11 = TextEditingController();
-  final TextEditingController _controller12 = TextEditingController();
+
   String? _selectedValue;
 
   void dispose() {
     _controller.dispose();
     _controller2.dispose();
+    _controller3.dispose();
+    _controller4.dispose();
+    _controller5.dispose();
+    _controller6.dispose();
+    _controller7.dispose();
+
     super.dispose();
   }
 
@@ -90,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
               initialValue: '',
               // Provide a builder function to create your custom widget.
               builder: (FormFieldState<String> state) {
-                return Container(
+                return SizedBox(
                   width: 400,
                   height: 60,
                   child: TextField(
@@ -137,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
               initialValue: '',
               // Provide a builder function to create your custom widget.
               builder: (FormFieldState<String> state) {
-                return Container(
+                return SizedBox(
                   width: 400,
                   height: 60,
                   child: TextField(
@@ -145,6 +147,116 @@ class _MyHomePageState extends State<MyHomePage> {
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       labelText: 'Mærke',
+                      errorText: state.hasError ? state.errorText : null,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FormField<String>(
+              // Initialize FormField value.
+              initialValue: '',
+              // Provide a builder function to create your custom widget.
+              builder: (FormFieldState<String> state) {
+                return SizedBox(
+                  width: 400,
+                  height: 60,
+                  child: TextField(
+                    controller: _controller3,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Model',
+                      errorText: state.hasError ? state.errorText : null,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FormField<String>(
+              // Initialize FormField value.
+              initialValue: '',
+              // Provide a builder function to create your custom widget.
+              builder: (FormFieldState<String> state) {
+                return SizedBox(
+                  width: 400,
+                  height: 60,
+                  child: TextField(
+                    controller: _controller4,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Serienummer',
+                      errorText: state.hasError ? state.errorText : null,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FormField<String>(
+              // Initialize FormField value.
+              initialValue: '',
+              // Provide a builder function to create your custom widget.
+              builder: (FormFieldState<String> state) {
+                return SizedBox(
+                  width: 400,
+                  height: 60,
+                  child: TextField(
+                    controller: _controller5,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Afsender',
+                      errorText: state.hasError ? state.errorText : null,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FormField<String>(
+              // Initialize FormField value.
+              initialValue: '',
+              // Provide a builder function to create your custom widget.
+              builder: (FormFieldState<String> state) {
+                return SizedBox(
+                  width: 400,
+                  height: 60,
+                  child: TextField(
+                    controller: _controller6,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Modtager',
+                      errorText: state.hasError ? state.errorText : null,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FormField<String>(
+              // Initialize FormField value.
+              initialValue: '',
+              // Provide a builder function to create your custom widget.
+              builder: (FormFieldState<String> state) {
+                return SizedBox(
+                  width: 400,
+                  height: 60,
+                  child: TextField(
+                    controller: _controller7,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Eventuelle noter',
                       errorText: state.hasError ? state.errorText : null,
                     ),
                   ),
