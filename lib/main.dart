@@ -23,14 +23,13 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: "IBM"),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'PSF Database'),
+      home: MyHomePage(title: 'PSF Database'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
+  MyHomePage({super.key, required this.title});
   final String title;
 
   @override
@@ -38,6 +37,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _controller = TextEditingController();
+  void dispose() {
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,17 +50,46 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
+          child: Form(
+        key: _formKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.only(bottom: 50.0),
-              width: 600,
+          children: [
+            FormField<String>(
+              // Initialize FormField value.
+              initialValue: '',
+              // Provide a builder function to create your custom widget.
+              builder: (FormFieldState<String> state) {
+                return Container(
+                  width: 400,
+                  height: 60,
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Sagsnummer',
+                      errorText: state.hasError ? state.errorText : null,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Processing Data')),
+                  );
+                  print(_controller.text);
+                }
+              },
+              child: const Text('Gem'),
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }
