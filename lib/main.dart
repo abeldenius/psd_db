@@ -99,10 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     value: "Bærbar (B)",
                   ),
                   DropdownMenuItem(
-                    child: Text("Bærbar (B)"),
-                    value: "Bærbar (B)",
-                  ),
-                  DropdownMenuItem(
                     child: Text("Android (A)"),
                     value: "Android (A)",
                   ),
@@ -111,33 +107,37 @@ class _MyHomePageState extends State<MyHomePage> {
                     value: "iPhone (I)",
                   ),
                   DropdownMenuItem(
-                    child: Text("Bærbar (B)"),
-                    value: "Bærbar (B)",
+                    child: Text("Tablet (T)"),
+                    value: "Tablet (T)",
                   ),
                   DropdownMenuItem(
-                    child: Text("Bærbar (B)"),
-                    value: "Bærbar (B)",
+                    child: Text("iPad (iP)"),
+                    value: "iPad (iP)",
                   ),
                   DropdownMenuItem(
-                    child: Text("Bærbar (B)"),
-                    value: "Bærbar (B)",
+                    child: Text("Stationær (S)"),
+                    value: "Stationær (S)",
                   ),
                   DropdownMenuItem(
-                    child: Text("Bærbar (B)"),
-                    value: "Bærbar (B)",
+                    child: Text("USB (U)"),
+                    value: "USB (U)",
                   ),
                   DropdownMenuItem(
-                    child: Text("Bærbar (B)"),
-                    value: "Bærbar (B)",
+                    child: Text("HDD (HDD)"),
+                    value: "HDD (HDD)",
                   ),
                   DropdownMenuItem(
-                    child: Text("Bærbar (B)"),
-                    value: "Bærbar (B)",
+                    child: Text("SSD (SSD)"),
+                    value: "SSD (SSD)",
                   ),
                   DropdownMenuItem(
-                    child: Text("Bærbar (B)"),
-                    value: "Bærbar (B)",
-                  )
+                    child: Text("Email (EM)"),
+                    value: "Email (EM)",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Server (SSH)"),
+                    value: "Server (SSH)",
+                  ),
 
                   // Add more items here
                 ],
