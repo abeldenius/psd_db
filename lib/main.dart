@@ -49,6 +49,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> items = [
+      "Computer (C)",
+      "Bærbar (B)",
+      "Android (A)",
+      "iPhone (I)",
+      "Tablet (T)",
+      "iPad (iP)",
+      "Stationær (S)",
+      "USB (U)",
+      "HDD (HDD)",
+      "SSD (SSD)",
+      "Email (EM)",
+      "Server (SSH)"
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -89,58 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   labelText: 'Enhed',
                 ),
                 value: _selectedValue,
-                items: const [
-                  DropdownMenuItem(
-                    child: Text("Computer (C)"),
-                    value: "Computer (C)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Bærbar (B)"),
-                    value: "Bærbar (B)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Android (A)"),
-                    value: "Android (A)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("iPhone (I)"),
-                    value: "iPhone (I)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Tablet (T)"),
-                    value: "Tablet (T)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("iPad (iP)"),
-                    value: "iPad (iP)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Stationær (S)"),
-                    value: "Stationær (S)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("USB (U)"),
-                    value: "USB (U)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("HDD (HDD)"),
-                    value: "HDD (HDD)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("SSD (SSD)"),
-                    value: "SSD (SSD)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Email (EM)"),
-                    value: "Email (EM)",
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Server (SSH)"),
-                    value: "Server (SSH)",
-                  ),
-
-                  // Add more items here
-                ],
+                items: items.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
                 onChanged: (String? newValue) {
                   setState(() {
                     _selectedValue = newValue;
@@ -158,6 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SnackBar(content: Text('Processing Data')),
                   );
                   print(_controller.text);
+                  print(_selectedValue);
                 }
               },
               child: const Text('Gem'),
