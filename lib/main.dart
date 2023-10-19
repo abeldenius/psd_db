@@ -144,8 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             ),
+            if (showEmailFields) const SizedBox(height: 10),
             if (showEmailFields)
               buildCustomFormField('Email', controllers['Email']!),
+            if (showEmailFields) const SizedBox(height: 10),
             if (showEmailFields)
               buildCustomFormField('Password', controllers['Password']!),
             const SizedBox(
