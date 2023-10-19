@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from typing import List
+from typing import Dict
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -13,8 +13,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.post("/receive_texts/")
-async def receive_texts(texts: List[str]):
-    for text in texts:
-        print(f"Received text: {text}")
-    return {"message": "Texts received"}
+async def receive_texts(texts: Dict[str, str]):
+    for key, value in texts.items():
+        print(f"Received {key}: {value}")
+    return {"message": "Data received"}
