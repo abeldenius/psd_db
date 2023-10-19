@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _formKey = GlobalKey<FormState>();
   List<TextEditingController> controllers =
-      List.generate(7, (index) => TextEditingController());
+      List.generate(8, (index) => TextEditingController());
   String? _selectedValue;
 
   void dispose() {
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
         key: _formKey,
         child: Column(
           children: [
-            buildCustomFormField('Sagsnummer', _controller),
+            buildCustomFormField('Sagsnummer', controllers[1]),
             const SizedBox(
               height: 10,
             ),
@@ -127,27 +127,27 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Mærke', _controller2),
+            buildCustomFormField('Mærke', controllers[2]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Model', _controller3),
+            buildCustomFormField('Model', controllers[3]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Serienummer', _controller4),
+            buildCustomFormField('Serienummer', controllers[4]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Afsender', _controller5),
+            buildCustomFormField('Afsender', controllers[5]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Modtager', _controller6),
+            buildCustomFormField('Modtager', controllers[6]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Eventuelle noter', _controller7),
+            buildCustomFormField('Eventuelle noter', controllers[7]),
             const SizedBox(
               height: 20,
             ),
@@ -157,7 +157,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
-                  print(_controller.text);
+                  for (var controller in controllers) {
+                    print(controller.text);
+                  }
                   print(_selectedValue);
                 }
               },
