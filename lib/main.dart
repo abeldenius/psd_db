@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,13 +27,13 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: "IBM"),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: 'PSF Database'),
+      home: const MyHomePage(title: 'PSF Database'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title});
   final String title;
 
   @override
@@ -64,16 +63,26 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  List<TextEditingController> controllers =
-      List.generate(7, (index) => TextEditingController());
-  String? _selectedValue;
+  bool showEmailFields = false;
+  Map<String, TextEditingController> controllers = {
+    'Sagsnummer': TextEditingController(),
+    'Mærke': TextEditingController(),
+    'Model': TextEditingController(),
+    'Serienummer': TextEditingController(),
+    'Afsender': TextEditingController(),
+    'Modtager': TextEditingController(),
+    'Eventuelle noter': TextEditingController(),
+  };
 
-  void dispose() {
-    for (var controller in controllers) {
-      controller.dispose();
+  String? _selectedValue = "Computer (C)";
+
+  @override
+  void initState() {
+    super.initState();
+    if (showEmailFields) {
+      controllers['Email'] = TextEditingController();
+      controllers['Password'] = TextEditingController();
     }
-
-    super.dispose();
   }
 
   @override
@@ -101,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
         key: _formKey,
         child: Column(
           children: [
-            buildCustomFormField('Sagsnummer', controllers[0]),
+            buildCustomFormField('Sagsnummer', controllers["Sagsnummer"]!),
             const SizedBox(
               height: 10,
             ),
@@ -123,34 +132,55 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (String? newValue) {
                   setState(() {
                     _selectedValue = newValue;
+                    showEmailFields = (_selectedValue == "Email (EM)");
+                    if (showEmailFields) {
+                      controllers['Email'] = TextEditingController();
+                      controllers['Password'] = TextEditingController();
+                    } else {
+                      controllers.remove('Email');
+                      controllers.remove('Password');
+                    }
                   });
                 },
               ),
             ),
+            if (showEmailFields)
+              buildCustomFormField('Email', controllers['Email']!),
+            if (showEmailFields)
+              buildCustomFormField('Password', controllers['Password']!),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Mærke', controllers[1]),
+            if (!showEmailFields) ...[
+              buildCustomFormField('Mærke', controllers["Mærke"]!),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+            if (!showEmailFields) ...[
+              buildCustomFormField('Model', controllers["Model"]!),
+              const SizedBox(
+                height: 10,
+              )
+            ],
+            if (!showEmailFields) ...[
+              buildCustomFormField('Serienummer', controllers["Serienummer"]!),
+              const SizedBox(
+                height: 10,
+              )
+            ],
+            if (showEmailFields) ...[
+              buildCustomFormField('Afsender', controllers["Afsender"]!),
+              const SizedBox(
+                height: 10,
+              )
+            ],
+            buildCustomFormField('Modtager', controllers["Modtager"]!),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Model', controllers[2]),
-            const SizedBox(
-              height: 10,
-            ),
-            buildCustomFormField('Serienummer', controllers[3]),
-            const SizedBox(
-              height: 10,
-            ),
-            buildCustomFormField('Afsender', controllers[4]),
-            const SizedBox(
-              height: 10,
-            ),
-            buildCustomFormField('Modtager', controllers[5]),
-            const SizedBox(
-              height: 10,
-            ),
-            buildCustomFormField('Eventuelle noter', controllers[6]),
+            buildCustomFormField(
+                'Eventuelle noter', controllers["Eventuelle noter"]!),
             const SizedBox(
               height: 20,
             ),
@@ -160,12 +190,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
-                  List<String> data = [];
+                  Map<String, String> data = {};
 
-                  for (var controller in controllers) {
-                    data.add(controller.text);
-                  }
-                  data.add(_selectedValue!);
+                  controllers.forEach((key, controller) {
+                    data[key] = controller.text;
+                  });
+                  data['Enhed'] = _selectedValue!;
 
                   final response = await http.post(
                     Uri.parse('http://127.0.0.1:8000/receive_texts/'),
