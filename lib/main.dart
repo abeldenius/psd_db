@@ -180,6 +180,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                 }
               },
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.hovered)) {
+                      return Colors.greenAccent; // Hover color
+                    }
+                    return Colors.black
+                        .withOpacity(0.8); // Default, not hovered.
+                  }),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                      const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ))),
               child: const Text('Indsæt'),
             ),
           ],
