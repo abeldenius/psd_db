@@ -194,6 +194,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   controllers.forEach((key, controller) {
                     data[key] = controller.text;
+                    if (data[key]!.isEmpty) {
+                      data[key] = 'N/A';
+                    }
                   });
                   data['Enhed'] = _selectedValue!;
 
