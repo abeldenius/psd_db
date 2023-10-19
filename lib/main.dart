@@ -1,6 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Message {
   final String text;
@@ -62,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _formKey = GlobalKey<FormState>();
   List<TextEditingController> controllers =
-      List.generate(8, (index) => TextEditingController());
+      List.generate(7, (index) => TextEditingController());
   String? _selectedValue;
 
   void dispose() {
@@ -98,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
         key: _formKey,
         child: Column(
           children: [
-            buildCustomFormField('Sagsnummer', controllers[1]),
+            buildCustomFormField('Sagsnummer', controllers[0]),
             const SizedBox(
               height: 10,
             ),
@@ -127,40 +130,54 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Mærke', controllers[2]),
+            buildCustomFormField('Mærke', controllers[1]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Model', controllers[3]),
+            buildCustomFormField('Model', controllers[2]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Serienummer', controllers[4]),
+            buildCustomFormField('Serienummer', controllers[3]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Afsender', controllers[5]),
+            buildCustomFormField('Afsender', controllers[4]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Modtager', controllers[6]),
+            buildCustomFormField('Modtager', controllers[5]),
             const SizedBox(
               height: 10,
             ),
-            buildCustomFormField('Eventuelle noter', controllers[7]),
+            buildCustomFormField('Eventuelle noter', controllers[6]),
             const SizedBox(
               height: 20,
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
+                  List<String> data = [];
+
                   for (var controller in controllers) {
-                    print(controller.text);
+                    data.add(controller.text);
                   }
-                  print(_selectedValue);
+                  data.add(_selectedValue!);
+
+                  final response = await http.post(
+                    Uri.parse('http://127.0.0.1:8000/receive_texts/'),
+                    headers: {'Content-Type': 'application/json'},
+                    body: jsonEncode(data),
+                  );
+
+                  if (response.statusCode == 200) {
+                    print('Success');
+                  } else {
+                    print('Failed');
+                  }
                 }
               },
               child: const Text('Indsæt'),
