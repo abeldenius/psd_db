@@ -17,5 +17,5 @@ app.add_middleware(
 @app.post("/receive_texts/")
 async def receive_texts(texts: Dict[str, str]):
     for key, value in texts.items():
-        print(f"Received {key}: {value}")
+        print(f"{key}: {value}")
     return {"message": "Data received"}
