@@ -61,24 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _controller = TextEditingController();
-  final TextEditingController _controller2 = TextEditingController();
-  final TextEditingController _controller3 = TextEditingController();
-  final TextEditingController _controller4 = TextEditingController();
-  final TextEditingController _controller5 = TextEditingController();
-  final TextEditingController _controller6 = TextEditingController();
-  final TextEditingController _controller7 = TextEditingController();
-
+  List<TextEditingController> controllers =
+      List.generate(7, (index) => TextEditingController());
   String? _selectedValue;
 
   void dispose() {
-    _controller.dispose();
-    _controller2.dispose();
-    _controller3.dispose();
-    _controller4.dispose();
-    _controller5.dispose();
-    _controller6.dispose();
-    _controller7.dispose();
+    for (var controller in controllers) {
+      controller.dispose();
+    }
 
     super.dispose();
   }
