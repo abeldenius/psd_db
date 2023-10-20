@@ -73,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'Modtager': TextEditingController(),
     'Eventuelle noter': TextEditingController(),
     'Lokation for opbevaring': TextEditingController(),
+    'Størrelse': TextEditingController(),
   };
 
   String? _selectedValue = "Computer (C)";
@@ -172,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 10,
               )
             ],
-            if (showEmailFields) ...[
+            if (!showEmailFields) ...[
               buildCustomFormField('Afsender', controllers["Afsender"]!),
               const SizedBox(
                 height: 10,
@@ -184,6 +185,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             buildCustomFormField(
                 'Eventuelle noter', controllers["Eventuelle noter"]!),
+            const SizedBox(
+              height: 10,
+            ),
+            buildCustomFormField('Størrelse/brugt', controllers["Størrelse"]!),
             const SizedBox(
               height: 10,
             ),
@@ -206,6 +211,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       data[key] = 'N/A';
                     }
                   });
+
+                  if (!controllers.containsKey("Email")) {
+                    data['Email'] = 'N/A';
+                  }
+                  if (!controllers.containsKey("Passowrd")) {
+                    data['Password'] = 'N/A';
+                  }
                   data['Enhed'] = _selectedValue!;
 
                   final response = await http.post(
