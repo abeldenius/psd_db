@@ -185,12 +185,12 @@ class _MyHomePageState extends State<MyHomePage> {
             buildCustomFormField(
                 'Eventuelle noter', controllers["Eventuelle noter"]!),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             buildCustomFormField('Lokation for opbevaring',
                 controllers["Lokation for opbevaring"]!),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             ElevatedButton(
               onPressed: () async {
