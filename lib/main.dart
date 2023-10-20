@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'Afsender': TextEditingController(),
     'Modtager': TextEditingController(),
     'Eventuelle noter': TextEditingController(),
+    'Lokation for opbevaring': TextEditingController(),
   };
 
   String? _selectedValue = "Computer (C)";
@@ -183,6 +184,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             buildCustomFormField(
                 'Eventuelle noter', controllers["Eventuelle noter"]!),
+            const SizedBox(
+              height: 20,
+            ),
+            buildCustomFormField('Lokation for opbevaring',
+                controllers["Lokation for opbevaring"]!),
             const SizedBox(
               height: 20,
             ),
