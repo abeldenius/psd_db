@@ -1,7 +1,7 @@
 import sqlite3 
 
-#con = sqlite3.connect("database.db")
-#cur = con.cursor()
+con = sqlite3.connect("psd.db")
+cur = con.cursor()
 
 def generate_id(device: str, value: str) -> str:
 
