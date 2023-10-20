@@ -1,36 +1,36 @@
 import sqlite3 
 
-con = sqlite3.connect("database.db")
-cur = con.cursor()
+#con = sqlite3.connect("database.db")
+#cur = con.cursor()
 
 def generate_id(device: str, value: str) -> str:
 
     count: int = 0
     
     id: str = ''
-    if device == "computer":
+    if device == "Computer (C)":
         id += 'C'
-    elif device == 'bærbar':
+    elif device == "Bærbar (B)":
         id+= 'B'
-    elif device == 'android':
+    elif device == 'Android (A)':
         id+= 'A'
-    elif device == 'iphone':
+    elif device == 'iPhone (I)':
         id+= 'I'
-    elif device == 'tablet':
+    elif device == 'Tablet (T)':
         id+= 'T'
-    elif device == 'ipad':
+    elif device == 'iPad (iP)':
         id+= 'iP'
-    elif device == 'stationær':
+    elif device == 'Stationær (S)':
         id+='S'
-    elif device == 'usb':
+    elif device == 'USB (U)':
         id+='U'
-    elif device == 'hdd':
+    elif device == 'HDD (HDD)':
         id+='HDD'
-    elif device == 'sdd':
+    elif device == 'SSD (SSD)':
         id+='SDD'
-    elif device=='email':
+    elif device=='Email (EM)':
         id+='EM'
-    elif device=='server':
+    elif device=='Server (SSH)':
         id+='SSH'
 
     # Write loop to iterate through all rows of sqlite3 database and find the highest number
@@ -54,7 +54,7 @@ def generate_id(device: str, value: str) -> str:
    
 
     # Increment the device count and format it with leading zeros
-    new_device_number = str(count + 1).zfill(3)
+    new_device_number = str(count).zfill(3)
 
     # Generate the new device ID
     new_device_id = f"{value}-{id}-{new_device_number}"
