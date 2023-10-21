@@ -113,19 +113,25 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             const DrawerHeader(
-              child: Text('Drawer Header'),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.black,
+              ),
+              child: Text(
+                'Oversigt',
+                style: TextStyle(color: Colors.white),
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: const Text(
+                'Dataoversigt',
+                style: TextStyle(color: Colors.black),
+              ),
               onTap: () {
                 Navigator.pop(context); // Close the drawer
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: const Text('Opgaver'),
               onTap: () {
                 Navigator.pop(context); // Close the drawer
               },
