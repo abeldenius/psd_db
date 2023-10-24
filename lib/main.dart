@@ -136,12 +136,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
-            ListTile(
-              title: const Text('Opgaver'),
-              onTap: () {
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
           ],
         ),
       ),
