@@ -38,6 +38,4 @@ def fetch_data():
     return formatted_data
 
 # Fetch and print the formatted data
-formatted_data = fetch_data()
-for item in formatted_data:
-    print(item)
+
