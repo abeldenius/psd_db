@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from db.id_generator import generate_id
 from datetime import datetime
 from db.main import insertion
+from db.fetch import fetch_data
 
 
 
@@ -27,3 +28,8 @@ async def receive_texts(texts: Dict[str, str]):
     insertion(texts)
 
     return {"message": "Data received"}
+
+@app.get("/fetch/")
+async def fetch_data():
+    data = fetch_data()
+    return data
