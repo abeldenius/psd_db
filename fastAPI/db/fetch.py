@@ -1,8 +1,9 @@
 import sqlite3
+from typing import List, Dict
 
 con = sqlite3.connect("/Users/zeus/Documents/ps_db/fastAPI/psd.db")
 
-def fetch_data():
+async def fetch_data_from_db() -> List[Dict[str, str]]:
     cur = con.cursor()
     cur.execute("""SELECT * FROM Data""")
     data = cur.fetchall()
@@ -38,4 +39,3 @@ def fetch_data():
     return formatted_data
 
 # Fetch and print the formatted data
-
