@@ -19,16 +19,13 @@ Future<List<Map<String, dynamic>>> fetchData() async {
   }
 }
 
+class DataOverviewPage extends StatelessWidget {
+  late Future<List<Map<String, dynamic>>> futureData;
 
-class DataOverviewPage extends StatefulWidget {
-  const DataOverviewPage({Key? key}) : super(key: key);
-  
+  DataOverviewPage() {
+    futureData = fetchData();
+  }
 
-  @override
-  _DataOverviewPageState createState() => _DataOverviewPageState();
-}
-
-class _DataOverviewPageState extends State<DataOverviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,37 +35,49 @@ class _DataOverviewPageState extends State<DataOverviewPage> {
       body: Center(
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.black.withOpacity(0.5)),
-          ),
+              border: Border.all(color: Colors.black.withOpacity(0.5))),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: FutureBuilder<List<Map<String, dynamic>>>(
-              // Replace this with your data fetching logic
-              // future: fetchData(),
+              future: futureData,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
-                } else if (!snapshot.hasData || snapshot.data.isEmpty) {
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Text('No data available.');
                 } else {
-                  final data = snapshot.data!; // Assuming data is a list of dictionaries
+                  final data = snapshot.data!;
+
+                  // Create rows based on the fetched data
+                  final rows =
+                      data.map<DataRow>((Map<String, dynamic> rowData) {
+                    final cells = rowData.keys.map<DataCell>((String key) {
+                      return DataCell(Text(rowData[key].toString()));
+                    }).toList();
+                    return DataRow(cells: cells);
+                  }).toList();
 
                   return DataTable(
                     columnSpacing: 15,
-                    columns: data.isNotEmpty
-                        ? data[0].keys.map<DataColumn>((String key) {
-                            return DataColumn(label: Text(key));
-                          }).toList()
-                        : const [],
-                    rows: data.map<DataRow>((Map<String, dynamic> rowData) {
-                      return DataRow(
-                        cells: rowData.keys.map<DataCell>((String key) {
-                          return DataCell(Text(rowData[key].toString()));
-                        }).toList(),
-                      );
-                    }).toList(),
+                    columns: const [
+                      DataColumn(label: Text('Sagsnummer')),
+                      DataColumn(label: Text('Enhed')),
+                      DataColumn(label: Text('Mærke')),
+                      DataColumn(label: Text('Model')),
+                      DataColumn(label: Text('Serienummer')),
+                      DataColumn(label: Text('ID')),
+                      DataColumn(label: Text('Afsender')),
+                      DataColumn(label: Text('Modtager')),
+                      DataColumn(label: Text('Noter')),
+                      DataColumn(label: Text('Tid')),
+                      DataColumn(label: Text('Mail')),
+                      DataColumn(label: Text('Password')),
+                      DataColumn(label: Text('Størrelse')),
+                      DataColumn(label: Text('Lokation')),
+                    ],
+                    rows: rows,
                   );
                 }
               },
@@ -79,27 +88,3 @@ class _DataOverviewPageState extends State<DataOverviewPage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-          DataColumn(label: Text('Sagsnummer')),
-                DataColumn(label: Text('Enhed')),
-                DataColumn(label: Text('Mærke')),
-                DataColumn(label: Text('Model')),
-                DataColumn(label: Text('Serienummer')),
-                DataColumn(label: Text('ID')),
-                DataColumn(label: Text('Afsender')),
-                DataColumn(label: Text('Modtager')),
-                DataColumn(label: Text('Noter')),
-                DataColumn(label: Text('Tid')),
-                DataColumn(label: Text('Mail')),
-                DataColumn(label: Text('Password')),
-                DataColumn(label: Text('Størrelse')),
-                DataColumn(label: Text('Lokation')),
-              ],
