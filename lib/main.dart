@@ -131,8 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context); // Close the drawer
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const DataOverviewPage()),
+                  MaterialPageRoute(builder: (context) => DataOverviewPage()),
                 );
               },
             ),
