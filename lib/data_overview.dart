@@ -1,4 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+Future<List<Map<String, dynamic>>> fetchData() async {
+  final response = await http.get(
+    Uri.parse('http://127.0.0.1:8000/receive_texts/'),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    // Parse the response JSON into a List of Map<String, dynamic>
+    final List<dynamic> responseData = jsonDecode(response.body);
+    final List<Map<String, dynamic>> data =
+        responseData.cast<Map<String, dynamic>>();
+    return data;
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
 
 class DataOverviewPage extends StatelessWidget {
   const DataOverviewPage({super.key});
