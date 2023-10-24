@@ -4,7 +4,7 @@ import 'dart:convert';
 
 Future<List<Map<String, dynamic>>> fetchData() async {
   final response = await http.get(
-    Uri.parse('http://127.0.0.1:8000/receive_texts/'),
+    Uri.parse('http://127.0.0.1:8000/fetch/'),
     headers: {'Content-Type': 'application/json'},
   );
 
@@ -19,9 +19,16 @@ Future<List<Map<String, dynamic>>> fetchData() async {
   }
 }
 
-class DataOverviewPage extends StatelessWidget {
-  const DataOverviewPage({super.key});
 
+class DataOverviewPage extends StatefulWidget {
+  const DataOverviewPage({Key? key}) : super(key: key);
+  
+
+  @override
+  _DataOverviewPageState createState() => _DataOverviewPageState();
+}
+
+class _DataOverviewPageState extends State<DataOverviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,13 +38,57 @@ class DataOverviewPage extends StatelessWidget {
       body: Center(
         child: Container(
           decoration: BoxDecoration(
-              border: Border.all(color: Colors.black.withOpacity(0.5))),
+            border: Border.all(color: Colors.black.withOpacity(0.5)),
+          ),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columnSpacing: 15,
-              columns: const <DataColumn>[
-                DataColumn(label: Text('Sagsnummer')),
+            child: FutureBuilder<List<Map<String, dynamic>>>(
+              // Replace this with your data fetching logic
+              // future: fetchData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData || snapshot.data.isEmpty) {
+                  return Text('No data available.');
+                } else {
+                  final data = snapshot.data!; // Assuming data is a list of dictionaries
+
+                  return DataTable(
+                    columnSpacing: 15,
+                    columns: data.isNotEmpty
+                        ? data[0].keys.map<DataColumn>((String key) {
+                            return DataColumn(label: Text(key));
+                          }).toList()
+                        : const [],
+                    rows: data.map<DataRow>((Map<String, dynamic> rowData) {
+                      return DataRow(
+                        cells: rowData.keys.map<DataCell>((String key) {
+                          return DataCell(Text(rowData[key].toString()));
+                        }).toList(),
+                      );
+                    }).toList(),
+                  );
+                }
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+          DataColumn(label: Text('Sagsnummer')),
                 DataColumn(label: Text('Enhed')),
                 DataColumn(label: Text('Mærke')),
                 DataColumn(label: Text('Model')),
@@ -52,49 +103,3 @@ class DataOverviewPage extends StatelessWidget {
                 DataColumn(label: Text('Størrelse')),
                 DataColumn(label: Text('Lokation')),
               ],
-              rows: <DataRow>[
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('001')),
-                    DataCell(Text('Computer')),
-                    DataCell(Text('Apple')),
-                    DataCell(Text('MacBook Air')),
-                    DataCell(Text('SN123456')),
-                    DataCell(Text('ID001')),
-                    DataCell(Text('Alice')),
-                    DataCell(Text('Bob')),
-                    DataCell(Text('No issues')),
-                    DataCell(Text('12:00')),
-                    DataCell(Text('alice@email.com')),
-                    DataCell(Text('****')),
-                    DataCell(Text('Medium')),
-                    DataCell(Text('Shelf 1')),
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('002')),
-                    DataCell(Text('Phone')),
-                    DataCell(Text('Samsung')),
-                    DataCell(Text('Galaxy S10')),
-                    DataCell(Text('SN789012')),
-                    DataCell(Text('ID002')),
-                    DataCell(Text('Charlie')),
-                    DataCell(Text('David')),
-                    DataCell(Text('Needs repair')),
-                    DataCell(Text('1:00')),
-                    DataCell(Text('charlie@email.com')),
-                    DataCell(Text('****')),
-                    DataCell(Text('Small')),
-                    const DataCell(Text('Shelf 2')),
-                  ],
-                ),
-                // Add more rows here
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
