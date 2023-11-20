@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from typing import Dict
 from fastapi.middleware.cors import CORSMiddleware
-from db.id_generator import generate_id
+from .db.id_generator import generate_id
 from datetime import datetime
-from db.main import insertion
-from db.fetch import fetch_data_from_db
+from .db.main import insertion
+from .db.fetch import fetch_data_from_db
 
 
 
