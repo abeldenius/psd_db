@@ -1,6 +1,6 @@
 import sqlite3
 import pandas as pd 
-from db.setup import db_start
+from .setup import db_start
 # Connecting
 
 db_start()
